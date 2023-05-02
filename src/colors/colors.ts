@@ -1,0 +1,9 @@
+export enum colors {
+  BACK = '#FFFAF9',
+  BUTTON = '#FF7F50',
+  OPACITYBUTTON = '#FFC4AE',
+  WHITETEXT = '#FFFFFF',
+  GRAYTEXT = '#6A6A6A',
+  BLACKTEXT = '#1A1D1E',
+  SHADOW = '#FFF7F4',
+}
