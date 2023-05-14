@@ -19,6 +19,7 @@ export const LoginScreen = () => {
   const navigateToRegister = () => {
     navigation.navigate(EScreens.REGISTER);
   };
+
   return (
     <KeyboardAvoidingView
       behavior="padding"
