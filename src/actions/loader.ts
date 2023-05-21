@@ -1,4 +1,4 @@
-import {BlurViewProps} from '@react-native-community/blur';
+import {BlurViewProperties} from '@react-native-community/blur';
 import {createAction} from '@reduxjs/toolkit';
 import {ColorValue} from 'react-native';
 
@@ -6,7 +6,7 @@ type TLoaderState = {
   loadingsCounter: number;
   options?: {
     backgroundColor?: ColorValue;
-    blurType?: BlurViewProps['blurType'];
+    blurType?: BlurViewProperties['blurType'];
   };
 };
 

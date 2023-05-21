@@ -58,7 +58,7 @@ function* signInSaga(action: ReturnType<typeof signInRequest>) {
     }
   } catch (e) {
     yield put(signInFailure());
-    yield put(showAlert((e as Error).message));
+    yield put(showAlert(e.message));
   } finally {
     yield put(hideGlobalIndicator());
   }
@@ -105,7 +105,7 @@ function* signUpSaga({payload}: ReturnType<typeof signUpRequest>) {
     }
   } catch (e) {
     yield put(signInFailure());
-    yield put(showAlert((e as Error).message));
+    yield put(showAlert(e.message));
   } finally {
     yield put(hideGlobalIndicator());
   }

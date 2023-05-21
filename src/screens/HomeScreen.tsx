@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {FilterBlockButton} from '../components/home/buttons/FilterBlockButton';
 import {ProfileButton} from '../components/home/buttons/ProfileButton';
@@ -9,8 +9,10 @@ import {EScreens} from '../navigation/screens';
 import {DrawerButton} from '../components/home/buttons/DrawerButton';
 import {SpecsSection} from '../components/home/cards/SpecsSection';
 import {colors} from '../colors/colors';
+import Loading from '../components/loading';
 
 export const HomeScreen = () => {
+  const [loading, setLoading] = useState(true);
   const navigation = useNavigation<any>();
   const navigateToProfile = () => {
     navigation.navigate(EScreens.PROFILE);
@@ -24,29 +26,40 @@ export const HomeScreen = () => {
     navigation.openDrawer();
   };
 
+  useEffect(() => {
+    setInterval(() => {
+      setLoading(false);
+    }, 2000);
+  }, []);
+
   return (
     <View style={styles.container}>
-      <View style={styles.menuButtonStyle}>
-        <DrawerButton onPressToDrawer={navigateToDrawer} />
-        <ProfileButton onPress={navigateToProfile} />
-      </View>
-
-      <FilterBlockButton
-        searchTitle={'Search here...'}
-        onPress={navigateToProfile}
-      />
-      <ShowAllBlockButton
-        popularTitle={'Teams'}
-        showTitle={'Show All'}
-        onPress={navigateToApplications}
-      />
-      <TeamsSection />
-      <ShowAllBlockButton
-        popularTitle={'Specialists'}
-        showTitle={'Show All'}
-        onPress={navigateToApplications}
-      />
-      <SpecsSection />
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          <View style={styles.menuButtonStyle}>
+            <DrawerButton onPressToDrawer={navigateToDrawer} />
+            <ProfileButton onPress={navigateToProfile} />
+          </View>
+          <FilterBlockButton
+            searchTitle={'Search here...'}
+            onPress={navigateToProfile}
+          />
+          <ShowAllBlockButton
+            popularTitle={'Teams'}
+            showTitle={'Show All'}
+            onPress={navigateToApplications}
+          />
+          <TeamsSection />
+          <ShowAllBlockButton
+            popularTitle={'Specialists'}
+            showTitle={'Show All'}
+            onPress={navigateToApplications}
+          />
+          <SpecsSection />
+        </>
+      )}
     </View>
   );
 };

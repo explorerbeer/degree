@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
+import React, {useCallback, useEffect, useRef} from 'react';
 import {KeyboardAvoidingView, Platform, StyleSheet} from 'react-native';
 import {FindInvestorButton} from '../components/login/buttons/FindInvestorButton';
 import {FindTeamSpecButton} from '../components/login/buttons/FindTeamSpecButton';
@@ -10,6 +10,26 @@ import {PasswordTextInput} from '../components/register/textinputs/PasswordTextI
 import {FillDetailsText} from '../components/register/texts/FillDetailsText';
 import {EScreens} from '../navigation/screens';
 import {colors} from '../colors/colors';
+import * as Yup from 'yup';
+import {useAppDispatch} from '../store';
+import {signInRequest} from '../actions/auth';
+import {useFormik} from 'formik';
+import {useSelector} from 'react-redux';
+import {alertMessageSelector, isAlertShownSelector} from '../selectors';
+import {hideAlert} from '../actions/alert';
+import {markRequired} from '../../utils';
+import {useErrorAlertDialog} from '../components/dialogs/alert';
+
+const LoginSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('You should provide a valid email')
+    .required('Email is required.'),
+  password: Yup.string().required('Password is required.'),
+});
+
+type TLoginValues = {email: string; password: string};
+
+const initialValues: TLoginValues = {email: '', password: ''};
 
 export const LoginScreen = () => {
   const navigation = useNavigation<any>();
@@ -19,6 +39,39 @@ export const LoginScreen = () => {
   const navigateToRegister = () => {
     navigation.navigate(EScreens.REGISTER);
   };
+  const dispatch = useAppDispatch();
+  const inputRef = useRef(null);
+
+  const onSubmit = useCallback(
+    (values: TLoginValues) => {
+      dispatch(
+        signInRequest({
+          email: values.email,
+          password: values.password,
+        }),
+      );
+    },
+    [dispatch],
+  );
+
+  const formik = useFormik({
+    initialValues,
+    onSubmit,
+    validateOnMount: true,
+    validationSchema: LoginSchema,
+  });
+
+  const inputFocus = useCallback(() => {
+    inputRef.current?.focus();
+  }, []);
+
+  const isAlertShown = useSelector(isAlertShownSelector);
+  const alertMessage = useSelector(alertMessageSelector);
+  const errorDialog = useErrorAlertDialog();
+
+  useEffect(() => {
+    isAlertShown && errorDialog.show(alertMessage, () => dispatch(hideAlert()));
+  }, [errorDialog, isAlertShown, alertMessage, dispatch]);
 
   return (
     <KeyboardAvoidingView
@@ -29,8 +82,26 @@ export const LoginScreen = () => {
       <FillDetailsText
         fDetailsTitle={'Fill your details or continue with social media'}
       />
-      <EmailTextInput placeholder={'Email Address'} />
-      <PasswordTextInput placeholder={'Password'} />
+      <EmailTextInput
+        placeholder={markRequired('Email Adress')}
+        onChangeText={formik.handleChange('email')}
+        onBlur={formik.handleBlur('email')}
+        value={formik.values.email}
+        autoCapitalize={'none'}
+        returnKeyType="next"
+        blurOnSubmit={false}
+        onSubmitEditing={inputFocus}
+        keyboardType="email-address"
+      />
+      <PasswordTextInput
+        placeholder={markRequired('Password')}
+        onChangeText={formik.handleChange('password')}
+        onBlur={formik.handleBlur('password')}
+        value={formik.values.password}
+        ref={inputRef}
+        returnKeyType="done"
+        onSubmitEditing={formik.handleSubmit}
+      />
       <FindTeamSpecButton
         onPress={navigateToHome}
         findTeamSpecTitle={'FIND TEAM OR SPECIALIST'}
