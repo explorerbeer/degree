@@ -11,7 +11,7 @@ export const FillDetailsText = ({
   fDetailsTitle,
 }: IFillDetailsText) => {
   const { darkMode } = useContext(ThemeContext);
-  const textColor = darkMode ? colors.WHITETEXT : colors.GRAYTEXT;
+  const textColor = darkMode ? colors.OPACITYBUTTON : colors.GRAYTEXT;
   const textStyle = {
     color: textColor,
   };

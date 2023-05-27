@@ -38,6 +38,7 @@ import {
 } from '../components/dialogs/alert';
 import { markRequired } from '../../utils';
 import { ThemeContext } from '../ThemeContext';
+import { PasswordTextInputConfirm } from '../components/register/textinputs/PasswordTextInputConfirm';
 
 const validationSchema = Yup.object().shape({
   userName: Yup.string().required('Name is required.'),
@@ -185,7 +186,7 @@ export const RegisterScreen = () => {
         ref={inputRef}
         onSubmitEditing={inputFocus}
       />
-      <PasswordTextInput
+      <PasswordTextInputConfirm
         placeholder={markRequired('Confirm password')}
         onChangeText={formik.handleChange('confirm')}
         onBlur={formik.handleBlur('confirm')}
@@ -194,7 +195,7 @@ export const RegisterScreen = () => {
         returnKeyType="done"
         onSubmitEditing={formik.handleSubmit}
       />
-      <LogRegButton onPress={formik.handleSubmit} title={'Sign Up'} />
+      <LogRegButton onPress={navigateToLogin} title={'Sign Up'} />
       <HaveAccButton
         onPress={navigateToLogin}
         haveAccTitle={'Already have account? '}

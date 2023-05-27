@@ -36,15 +36,15 @@ export const UsernameBlock = ({
       <TextInput
         placeholder={placeholder}
         placeholderTextColor={
-          darkMode ? colors.WHITETEXT : colors.GRAYTEXT
+          darkMode ? colors.OPACITYBUTTON : colors.GRAYTEXT
         }
         autoCapitalize={'none'}
         autoCorrect={false}
         maxLength={16}
         style={[styles.nameTextInputStyle, textStyle2]}
         onChangeText={(text) => onChangeText(text)}
-        value={value}
         clearButtonMode="always"
+        value={value}
       />
     </View>
   );

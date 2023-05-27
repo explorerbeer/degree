@@ -125,7 +125,7 @@ export const LoginScreen = () => {
         onSubmitEditing={formik.handleSubmit}
       />
       <FindTeamSpecButton
-        onPress={formik.handleSubmit}
+        onPress={navigateToHome}
         findTeamSpecTitle={'Join To TeamSync'}
       />
       <HaveAccButton

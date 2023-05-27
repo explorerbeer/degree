@@ -22,7 +22,9 @@ export const CustomDrawer = (props: any) => {
   const { darkMode } = useContext(ThemeContext);
   const backColor = darkMode ? colors.DARKBACK : colors.BACK;
   const backStyle = { backgroundColor: backColor };
-  const textColor1 = darkMode ? colors.WHITETEXT : colors.GRAYTEXT;
+  const textColor1 = darkMode
+    ? colors.OPACITYBUTTON
+    : colors.GRAYTEXT;
   const textStyle1 = { color: textColor1 };
   const textColor2 = darkMode ? colors.WHITETEXT : colors.BLACKTEXT;
   const shadowColor = darkMode ? colors.DARKSHADOW : colors.SHADOW;

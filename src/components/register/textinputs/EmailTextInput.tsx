@@ -56,7 +56,7 @@ export const EmailTextInput = ({
         <TextInput
           placeholder={placeholder}
           placeholderTextColor={
-            darkMode ? colors.WHITETEXT : colors.GRAYTEXT
+            darkMode ? colors.OPACITYBUTTON : colors.GRAYTEXT
           }
           style={[styles.emailTextStyle, textStyle]}
           autoCapitalize={'none'}

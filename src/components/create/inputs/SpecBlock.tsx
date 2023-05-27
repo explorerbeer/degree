@@ -40,7 +40,7 @@ export const SpecBlock = ({
       <TextInput
         placeholder={specPlaceholder}
         placeholderTextColor={
-          darkMode ? colors.WHITETEXT : colors.GRAYTEXT
+          darkMode ? colors.OPACITYBUTTON : colors.GRAYTEXT
         }
         autoCapitalize={'none'}
         autoCorrect={false}

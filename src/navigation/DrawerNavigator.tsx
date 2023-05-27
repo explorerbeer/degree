@@ -28,7 +28,7 @@ export const DrawerNavigator = () => {
         drawerActiveBackgroundColor: colors.BUTTON,
         drawerActiveTintColor: colors.WHITETEXT,
         drawerInactiveTintColor: darkMode
-          ? colors.WHITETEXT
+          ? colors.OPACITYBUTTON
           : colors.GRAYTEXT,
         drawerLabelStyle: {
           marginLeft: -20,

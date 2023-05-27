@@ -14,7 +14,7 @@ export const UserNameTextInput = ({
   placeholder,
 }: IUserNameTextInput) => {
   const { darkMode } = useContext(ThemeContext);
-  const textColor = darkMode ? colors.WHITETEXT : colors.GRAYTEXT;
+  const textColor = darkMode ? colors.OPACITYBUTTON : colors.GRAYTEXT;
   const textColorInput = darkMode
     ? colors.WHITETEXT
     : colors.BLACKTEXT;
@@ -36,7 +36,7 @@ export const UserNameTextInput = ({
         <TextInput
           placeholder={placeholder}
           placeholderTextColor={
-            darkMode ? colors.WHITETEXT : colors.GRAYTEXT
+            darkMode ? colors.OPACITYBUTTON : colors.GRAYTEXT
           }
           style={[styles.userNameTextStyle, textStyle]}
           autoCapitalize={'none'}

@@ -13,7 +13,9 @@ export const TeamBlock = ({
   teamPlaceholder,
 }: ITeamBlock) => {
   const { darkMode } = useContext(ThemeContext);
-  const textColor1 = darkMode ? colors.WHITETEXT : colors.GRAYTEXT;
+  const textColor1 = darkMode
+    ? colors.OPACITYBUTTON
+    : colors.GRAYTEXT;
   const textStyle1 = { color: textColor1 };
   const textColor2 = darkMode ? colors.WHITETEXT : colors.BLACKTEXT;
   const shadowColor = darkMode ? colors.DARKSHADOW : colors.SHADOW;
@@ -40,7 +42,7 @@ export const TeamBlock = ({
       <TextInput
         placeholder={teamPlaceholder}
         placeholderTextColor={
-          darkMode ? colors.WHITETEXT : colors.GRAYTEXT
+          darkMode ? colors.OPACITYBUTTON : colors.GRAYTEXT
         }
         autoCapitalize={'none'}
         autoCorrect={false}

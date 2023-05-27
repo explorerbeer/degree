@@ -23,7 +23,9 @@ export const TeamScreen = () => {
   const { darkMode } = useContext(ThemeContext);
   const backColor = darkMode ? colors.DARKBACK : colors.BACK;
   const backStyle = { backgroundColor: backColor };
-  const textColor1 = darkMode ? colors.WHITETEXT : colors.GRAYTEXT;
+  const textColor1 = darkMode
+    ? colors.OPACITYBUTTON
+    : colors.GRAYTEXT;
   const textStyle1 = { color: textColor1 };
   const textColor2 = darkMode ? colors.WHITETEXT : colors.BLACKTEXT;
   const shadowColor = darkMode ? colors.DARKSHADOW : colors.SHADOW;
@@ -60,7 +62,7 @@ export const TeamScreen = () => {
   >(null);
   const [selectedTeam, setSelectedTeam] = useState<any>(null);
 
-  const snapPoints = ['86.5%'];
+  const snapPoints = ['95%'];
 
   const handleSnapPress = useCallback((index: number) => {
     setSelectedItemIndex(index);
@@ -89,70 +91,72 @@ export const TeamScreen = () => {
   }, []);
 
   return (
-    <ScrollView style={[styles.container, backStyle]}>
+    <>
       <RespondBlockButton
         resTitle={'All Teams'}
         onPress={navigateToHome}
       />
-      <UserRespondsText uTitle={'All Team Offers'} />
-      <AllTeamsSection
-        bottomSheetOnPress={handleSnapPress}
-        selectedTeam={selectedTeam}
-      />
-      <BottomSheet
-        ref={sheetRef}
-        snapPoints={snapPoints}
-        enablePanDownToClose={true}
-        backdropComponent={renderBackdrop}
-        onClose={() => {
-          setIsOpen(false);
-          setSelectedItemIndex(null);
-        }}
-        onChange={handleSheetChange}
-        index={isOpen ? 0 : -1}
-      >
-        <BottomSheetScrollView
-          style={[styles.bottomViewStyle, backStyle]}
-          showsVerticalScrollIndicator={false}
+      <ScrollView style={[styles.container, backStyle]}>
+        <UserRespondsText uTitle={'All Team Offers'} />
+        <AllTeamsSection
+          bottomSheetOnPress={handleSnapPress}
+          selectedTeam={selectedTeam}
+        />
+        <BottomSheet
+          ref={sheetRef}
+          snapPoints={snapPoints}
+          enablePanDownToClose={true}
+          backdropComponent={renderBackdrop}
+          onClose={() => {
+            setIsOpen(false);
+            setSelectedItemIndex(null);
+          }}
+          onChange={handleSheetChange}
+          index={isOpen ? 0 : -1}
         >
-          <View style={styles.professionBlockStyle}>
-            <Text style={[styles.professionTextStyle, textStyle3]}>
-              {selectedTeam ? selectedTeam.profession : ''}
-            </Text>
-          </View>
-          <View style={styles.teamCityBlockStyle}>
-            <Text style={[styles.teamCityTextStyle, textStyle1]}>
-              {selectedTeam ? selectedTeam.teamTitle : ''}
-            </Text>
-            <Text style={[styles.teamCityTextStyle, textStyle1]}>
-              {selectedTeam ? selectedTeam.city : ''}
-            </Text>
-          </View>
-          <Text style={[styles.descrTextStyle, textStyle3]}>
-            Description:
-          </Text>
-          <View style={[styles.descrBlockStyle, textStyle2]}>
-            <Text style={[styles.descrStyle, textStyle1]}>
-              {selectedTeam ? selectedTeam.descr : ''}
-            </Text>
-          </View>
-          <Text style={[styles.linkTextStyle, textStyle3]}>
-            Links:
-          </Text>
-          <View style={[styles.linkFieldStyle, textStyle2]}>
-            <Text style={[styles.linkTelegramStyle, textStyle1]}>
-              {selectedTeam ? selectedTeam.links : ''}
-            </Text>
-            <View>
-              <ModalButton
-                title={'Respond'}
-                onPress={navigateToCreate}
-              />
+          <BottomSheetScrollView
+            style={[styles.bottomViewStyle, backStyle]}
+            showsVerticalScrollIndicator={false}
+          >
+            <View style={styles.professionBlockStyle}>
+              <Text style={[styles.professionTextStyle, textStyle3]}>
+                {selectedTeam ? selectedTeam.profession : ''}
+              </Text>
             </View>
-          </View>
-        </BottomSheetScrollView>
-      </BottomSheet>
-    </ScrollView>
+            <View style={styles.teamCityBlockStyle}>
+              <Text style={[styles.teamCityTextStyle, textStyle1]}>
+                {selectedTeam ? selectedTeam.teamTitle : ''}
+              </Text>
+              <Text style={[styles.teamCityTextStyle, textStyle1]}>
+                {selectedTeam ? selectedTeam.city : ''}
+              </Text>
+            </View>
+            <Text style={[styles.descrTextStyle, textStyle3]}>
+              Description:
+            </Text>
+            <View style={[styles.descrBlockStyle, textStyle2]}>
+              <Text style={[styles.descrStyle, textStyle1]}>
+                {selectedTeam ? selectedTeam.descr : ''}
+              </Text>
+            </View>
+            <Text style={[styles.linkTextStyle, textStyle3]}>
+              Links:
+            </Text>
+            <View style={[styles.linkFieldStyle, textStyle2]}>
+              <Text style={[styles.linkTelegramStyle, textStyle1]}>
+                {selectedTeam ? selectedTeam.links : ''}
+              </Text>
+              <View>
+                <ModalButton
+                  title={'Respond'}
+                  onPress={navigateToCreate}
+                />
+              </View>
+            </View>
+          </BottomSheetScrollView>
+        </BottomSheet>
+      </ScrollView>
+    </>
   );
 };
 

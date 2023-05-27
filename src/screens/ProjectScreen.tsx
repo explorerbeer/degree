@@ -49,7 +49,9 @@ const Item = ({ project, genre, platform }: ItemProps) => {
   const { darkMode } = useContext(ThemeContext);
   const backColor = darkMode ? colors.DARKBACK : colors.BACK;
   const backStyle = { backgroundColor: backColor };
-  const textColor1 = darkMode ? colors.WHITETEXT : colors.GRAYTEXT;
+  const textColor1 = darkMode
+    ? colors.OPACITYBUTTON
+    : colors.GRAYTEXT;
   const textStyle1 = { color: textColor1 };
   const textColor2 = darkMode ? colors.WHITETEXT : colors.BLACKTEXT;
   const shadowColor = darkMode ? colors.DARKSHADOW : colors.SHADOW;
@@ -150,7 +152,9 @@ export const ProjectScreen = () => {
   const { darkMode } = useContext(ThemeContext);
   const backColor = darkMode ? colors.DARKBACK : colors.BACK;
   const backStyle = { backgroundColor: backColor };
-  const textColor1 = darkMode ? colors.WHITETEXT : colors.GRAYTEXT;
+  const textColor1 = darkMode
+    ? colors.OPACITYBUTTON
+    : colors.GRAYTEXT;
   const textStyle1 = { color: textColor1 };
   const textColor2 = darkMode ? colors.WHITETEXT : colors.BLACKTEXT;
   const shadowColor = darkMode ? colors.DARKSHADOW : colors.SHADOW;
@@ -182,7 +186,7 @@ export const ProjectScreen = () => {
         <TextInput
           placeholder={'Search here...'}
           placeholderTextColor={
-            darkMode ? colors.WHITETEXT : colors.GRAYTEXT
+            darkMode ? colors.OPACITYBUTTON : colors.GRAYTEXT
           }
           autoCapitalize={'none'}
           autoCorrect={false}

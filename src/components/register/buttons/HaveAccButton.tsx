@@ -17,7 +17,9 @@ export const HaveAccButton = ({
 }: IHaveAccButton) => {
   const { darkMode } = useContext(ThemeContext);
   const textColor1 = darkMode ? colors.BUTTON : colors.BLACKTEXT;
-  const textColor2 = darkMode ? colors.WHITETEXT : colors.GRAYTEXT;
+  const textColor2 = darkMode
+    ? colors.OPACITYBUTTON
+    : colors.GRAYTEXT;
   const textStyle1 = {
     color: textColor1,
   };

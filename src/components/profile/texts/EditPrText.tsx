@@ -10,7 +10,7 @@ interface IEditPrText {
 export const EditPrText = ({ editTitle }: IEditPrText) => {
   const { darkMode } = useContext(ThemeContext);
 
-  const textColor = darkMode ? colors.WHITETEXT : colors.GRAYTEXT;
+  const textColor = darkMode ? colors.OPACITYBUTTON : colors.GRAYTEXT;
   const textStyle = { color: textColor };
   return (
     <Text style={[styles.editProfileTextStyle, textStyle]}>

@@ -40,7 +40,7 @@ export const LinkBlock = ({
       <TextInput
         placeholder={linkPlaceholder}
         placeholderTextColor={
-          darkMode ? colors.WHITETEXT : colors.GRAYTEXT
+          darkMode ? colors.OPACITYBUTTON : colors.GRAYTEXT
         }
         autoCapitalize={'none'}
         autoCorrect={false}

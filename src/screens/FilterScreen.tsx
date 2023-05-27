@@ -57,7 +57,9 @@ export const FilterScreen: React.FC<FilterScreenProps> = () => {
     backgroundColor: backColor,
     borderColor: shadowColor,
   };
-  const textColor1 = darkMode ? colors.WHITETEXT : colors.GRAYTEXT;
+  const textColor1 = darkMode
+    ? colors.OPACITYBUTTON
+    : colors.GRAYTEXT;
   const textStyle1 = { color: textColor1 };
   const textColor2 = darkMode ? colors.WHITETEXT : colors.BLACKTEXT;
   const shadowColor2 = darkMode ? colors.DARKSHADOW : colors.SHADOW;
@@ -186,7 +188,7 @@ export const FilterScreen: React.FC<FilterScreenProps> = () => {
     btnTextStyleInactive: {
       fontSize: 16,
       fontFamily: 'Poppins-Regular',
-      color: darkMode ? colors.WHITETEXT : colors.GRAYTEXT,
+      color: darkMode ? colors.OPACITYBUTTON : colors.GRAYTEXT,
     },
   });
 

@@ -1,4 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import {
   FlatList,
   StyleSheet,
@@ -14,6 +19,7 @@ import { teams } from '../mocks/teams';
 import _ from 'lodash';
 import { LikeButton } from '../components/home/buttons/LikeButton';
 import { ApplyButton } from '../components/home/buttons/ApplyButton';
+import { ThemeContext } from '../ThemeContext';
 
 type ItemProps = {
   teamTitle: string;
@@ -31,15 +37,40 @@ const Item = ({ teamTitle, profession, city }: ItemProps) => {
   const logLike = () => {
     console.log('Liked');
   };
+
+  const { darkMode } = useContext(ThemeContext);
+  const backColor = darkMode ? colors.DARKSHADOW : colors.SHADOW;
+  const backStyle = {
+    backgroundColor: backColor,
+  };
+  const textColorSpec = darkMode
+    ? colors.WHITETEXT
+    : colors.BLACKTEXT;
+  const textStyleSpec = {
+    color: textColorSpec,
+  };
+  const textColorCity = darkMode
+    ? colors.OPACITYBUTTON
+    : colors.GRAYTEXT;
+  const textStyleCity = {
+    color: textColorCity,
+  };
+
   return (
     <View>
-      <View style={styles.flatContainerStyle}>
+      <View style={[styles.flatContainerStyle, backStyle]}>
         <View style={styles.viewBlockStyle}>
-          <Text style={styles.profTextStyle}>{profession}</Text>
+          <Text style={[styles.profTextStyle, textStyleSpec]}>
+            {profession}
+          </Text>
           <LikeButton onPress={logLike} />
         </View>
-        <Text style={styles.cityTextStyle}>{city}</Text>
-        <Text style={styles.teamTextStyle}>{teamTitle}</Text>
+        <Text style={[styles.cityTextStyle, textStyleCity]}>
+          {city}
+        </Text>
+        <Text style={[styles.teamTextStyle, textStyleCity]}>
+          {teamTitle}
+        </Text>
         <ApplyButton onPress={navigateToApply} title={'Respond'} />
       </View>
     </View>
@@ -75,18 +106,46 @@ export const SearchScreen = () => {
     setData(filteredData);
   };
 
+  const { darkMode } = useContext(ThemeContext);
+  const backColor = darkMode ? colors.DARKBACK : colors.BACK;
+  const backStyle = {
+    backgroundColor: backColor,
+  };
+  const textColorSpec = darkMode
+    ? colors.WHITETEXT
+    : colors.BLACKTEXT;
+  const textStyleSpec = {
+    color: textColorSpec,
+  };
+  const textColorCity = darkMode
+    ? colors.OPACITYBUTTON
+    : colors.GRAYTEXT;
+  const textStyleCity = {
+    color: textColorCity,
+  };
+
+  const shadowColor = darkMode ? colors.DARKSHADOW : colors.SHADOW;
+
+  const inputStyle = {
+    color: textColorSpec,
+    backgroundColor: shadowColor,
+    borderColor: shadowColor,
+  };
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, backStyle]}>
       <RespondBlockButton
         resTitle={'Search'}
         onPress={navigateToHome}
       />
       <TextInput
         placeholder={'Search here...'}
-        placeholderTextColor={colors.GRAYTEXT}
+        placeholderTextColor={
+          darkMode ? colors.OPACITYBUTTON : colors.GRAYTEXT
+        }
         autoCapitalize={'none'}
         autoCorrect={false}
-        style={styles.inputStyle}
+        style={[styles.inputStyle, inputStyle]}
         clearButtonMode="always"
         value={searchQuery}
         onChangeText={(searchResult) => handleSearch(searchResult)}
@@ -120,12 +179,13 @@ const styles = StyleSheet.create({
     borderColor: colors.SHADOW,
     marginHorizontal: 20,
     marginTop: 25,
+    marginBottom: 25,
     shadowOpacity: 0.1,
     shadowOffset: { width: 5, height: 5 },
     shadowRadius: 5,
   },
   flatContainerStyle: {
-    marginTop: 30,
+    marginBottom: 15,
     backgroundColor: colors.SHADOW,
     marginHorizontal: 20,
     borderRadius: 16,

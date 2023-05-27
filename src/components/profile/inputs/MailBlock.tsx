@@ -35,7 +35,7 @@ export const MailBlock = ({
       <TextInput
         placeholder={placeholder}
         placeholderTextColor={
-          darkMode ? colors.WHITETEXT : colors.GRAYTEXT
+          darkMode ? colors.OPACITYBUTTON : colors.GRAYTEXT
         }
         autoCapitalize={'none'}
         autoCorrect={false}

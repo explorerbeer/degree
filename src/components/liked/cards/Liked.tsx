@@ -4,6 +4,8 @@ import { colors } from '../../../colors/colors';
 import { ApplyLikedButton } from '../buttons/ApplyLikedButton';
 import { LikeButton } from '../buttons/LikeButton';
 import { ThemeContext } from '../../../ThemeContext';
+import { EScreens } from '../../../navigation/screens';
+import { useNavigation } from '@react-navigation/native';
 
 interface ILikedProps {
   teamTitle: string;
@@ -12,6 +14,11 @@ interface ILikedProps {
 }
 
 export const Liked = ({ teamTitle, specs, city }: ILikedProps) => {
+  const navigation = useNavigation<any>();
+  const navigateToRespond = () => {
+    navigation.navigate(EScreens.APPLY);
+  };
+
   const likeLog = () => {
     console.log('liked');
   };
@@ -19,7 +26,9 @@ export const Liked = ({ teamTitle, specs, city }: ILikedProps) => {
   const { darkMode } = useContext(ThemeContext);
   const backColor = darkMode ? colors.DARKBACK : colors.BACK;
   const backStyle = { backgroundColor: backColor };
-  const textColor1 = darkMode ? colors.WHITETEXT : colors.GRAYTEXT;
+  const textColor1 = darkMode
+    ? colors.OPACITYBUTTON
+    : colors.GRAYTEXT;
   const textStyle1 = { color: textColor1 };
   const textColor2 = darkMode ? colors.WHITETEXT : colors.BLACKTEXT;
   const shadowColor = darkMode ? colors.DARKSHADOW : colors.SHADOW;
@@ -51,7 +60,10 @@ export const Liked = ({ teamTitle, specs, city }: ILikedProps) => {
       </View>
       <Text style={[styles.specTextStyle, textStyle3]}>{specs}</Text>
       <Text style={[styles.cityTextStyle, textStyle1]}>{city}</Text>
-      <ApplyLikedButton onPress={likeLog} title={'Respond'} />
+      <ApplyLikedButton
+        onPress={navigateToRespond}
+        title={'Respond'}
+      />
     </View>
   );
 };
@@ -59,7 +71,7 @@ export const Liked = ({ teamTitle, specs, city }: ILikedProps) => {
 const styles = StyleSheet.create({
   flatListStyle: {
     backgroundColor: colors.SHADOW,
-    marginBottom: 20,
+    marginBottom: 15,
     marginHorizontal: 10,
     borderRadius: 16,
     height: 155,
@@ -80,7 +92,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignContent: 'center',
     justifyContent: 'space-between',
-    marginTop: 20,
+    marginTop: 10,
   },
   LikeButtonStyle: {
     marginRight: 15,
@@ -96,5 +108,8 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Regular',
     color: colors.GRAYTEXT,
     marginLeft: 35,
+  },
+  specCityBlockStyle: {
+    marginTop: 10,
   },
 });
