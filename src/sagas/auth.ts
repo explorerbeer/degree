@@ -1,4 +1,4 @@
-import {call, put, takeEvery} from 'redux-saga/effects';
+import { call, put, takeEvery } from 'redux-saga/effects';
 import {
   SIGN_IN_REQUEST,
   signInFailure,
@@ -9,8 +9,11 @@ import {
   signUpRequest,
   signUpSuccess,
 } from '../actions/auth';
-import {hideGlobalIndicator, showGlobalIndicator} from '../actions/loader';
-import {showAlert} from '../actions/alert';
+import {
+  hideGlobalIndicator,
+  showGlobalIndicator,
+} from '../actions/loader';
+import { showAlert } from '../actions/alert';
 
 type TAwait<T> = T extends PromiseLike<infer U> ? U : T;
 export const HttpHeaders = {
@@ -36,11 +39,13 @@ function* signInSaga(action: ReturnType<typeof signInRequest>) {
     const response = (yield call(
       fetch,
       'http://localhost:3000/login',
-      requestOptions,
+      requestOptions
     )) as TAwait<ReturnType<typeof fetch>>;
 
     if (response.ok) {
-      const json = (yield call(response.json.bind(response))) as SignInResponse;
+      const json = (yield call(
+        response.json.bind(response)
+      )) as SignInResponse;
       yield put(signInSuccess(json));
       return;
     }
@@ -49,14 +54,14 @@ function* signInSaga(action: ReturnType<typeof signInRequest>) {
         throw new Error('Login error. Please check you credentials.');
       case 401:
         throw new Error(
-          'Login error. You could have passed invalid credentials.',
+          'Login error. You could have passed invalid credentials.'
         );
       case 404:
         throw new Error('Login error. User not found');
       default:
         throw new Error('Internal error');
     }
-  } catch (e) {
+  } catch (e: any) {
     yield put(signInFailure());
     yield put(showAlert(e.message));
   } finally {
@@ -64,7 +69,7 @@ function* signInSaga(action: ReturnType<typeof signInRequest>) {
   }
 }
 
-function* signUpSaga({payload}: ReturnType<typeof signUpRequest>) {
+function* signUpSaga({ payload }: ReturnType<typeof signUpRequest>) {
   yield put(showGlobalIndicator());
   const requestOptions: RequestInit = {
     method: 'POST',
@@ -81,14 +86,19 @@ function* signUpSaga({payload}: ReturnType<typeof signUpRequest>) {
     const response = (yield call(
       fetch,
       'http://localhost:3000/register',
-      requestOptions,
+      requestOptions
     )) as TAwait<ReturnType<typeof fetch>>;
 
     if (response.ok) {
       const resGet = (yield call(response.json.bind(response))) as {
         accessToken: string;
       };
-      yield put(signUpSuccess({id: payload.id, userToken: resGet.accessToken}));
+      yield put(
+        signUpSuccess({
+          id: payload.id,
+          userToken: resGet.accessToken,
+        })
+      );
       return;
     }
     switch (response.status) {
@@ -96,14 +106,14 @@ function* signUpSaga({payload}: ReturnType<typeof signUpRequest>) {
         throw new Error('Login error. Please check you credentials.');
       case 401:
         throw new Error(
-          'Login error. You could have passed invalid credentials.',
+          'Login error. You could have passed invalid credentials.'
         );
       case 404:
         throw new Error('Login error. User not found');
       default:
         throw new Error('Internal error');
     }
-  } catch (e) {
+  } catch (e: any) {
     yield put(signInFailure());
     yield put(showAlert(e.message));
   } finally {

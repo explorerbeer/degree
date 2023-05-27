@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Svg, {Path} from 'react-native-svg';
+import Svg, { Path } from 'react-native-svg';
 
 const IconSvgGoBack = () => (
   <Svg width={14} height={25} fill="none">

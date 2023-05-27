@@ -1,21 +1,29 @@
-import React, {useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {Switch} from 'react-native-gesture-handler';
-import {colors} from '../../../../colors/colors';
+import React, { useContext, useState } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { Switch } from 'react-native-gesture-handler';
+import { colors } from '../../../../colors/colors';
+import { ThemeContext } from '../../../../ThemeContext';
 
 interface ISwitchButtonBlock {
   title: string;
 }
 
-export const SwitchButtonBlock = ({title}: ISwitchButtonBlock) => {
-  const [mode, setMode] = useState(false);
+export const SwitchButtonBlock = ({ title }: ISwitchButtonBlock) => {
+  const { darkMode, toggleDarkMode } = useContext(ThemeContext);
+  const textColor = darkMode ? colors.WHITETEXT : colors.BLACKTEXT;
+  const textStyle = { color: textColor };
+
+  const handleToggleSwitch = () => {
+    toggleDarkMode();
+  };
+
   return (
     <View style={styles.switchBlockStyle}>
-      <Text style={styles.mainTextStyle}>{title}</Text>
+      <Text style={[styles.mainTextStyle, textStyle]}>{title}</Text>
       <Switch
-        value={mode}
-        onValueChange={() => setMode(value => !value)}
-        trackColor={{true: '#FF7F50'}}
+        value={darkMode}
+        onValueChange={handleToggleSwitch}
+        trackColor={{ true: '#FF7F50' }}
       />
     </View>
   );
@@ -32,7 +40,6 @@ const styles = StyleSheet.create({
   },
   mainTextStyle: {
     fontSize: 20,
-    color: colors.BLACKTEXT,
     fontFamily: 'Poppins-Medium',
   },
 });

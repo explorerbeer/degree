@@ -1,8 +1,9 @@
-import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {colors} from '../../../colors/colors';
-import IconSvgX from '../../../assets/icons/general/IconSvgX';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import React, { useContext } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { colors } from '../../../colors/colors';
+import { ThemeContext } from '../../../ThemeContext';
+// import IconSvgX from '../../../assets/icons/general/IconSvgX';
+// import {TouchableOpacity} from 'react-native-gesture-handler';
 
 interface IApplicationsProps {
   teamTitle: string;
@@ -10,22 +11,53 @@ interface IApplicationsProps {
   city: string;
 }
 
-export const Response = ({teamTitle, specs, city}: IApplicationsProps) => {
+export const Response = ({
+  teamTitle,
+  specs,
+  city,
+}: IApplicationsProps) => {
+  const { darkMode } = useContext(ThemeContext);
+  const backColor = darkMode ? colors.DARKBACK : colors.BACK;
+  const backStyle = { backgroundColor: backColor };
+  const textColor1 = darkMode ? colors.WHITETEXT : colors.GRAYTEXT;
+  const textStyle1 = { color: textColor1 };
+  const textColor2 = darkMode ? colors.WHITETEXT : colors.BLACKTEXT;
+  const shadowColor = darkMode ? colors.DARKSHADOW : colors.SHADOW;
+  const shadowColor2 = darkMode ? colors.DARKSHADOW : colors.SHADOW;
+  const statusColor = darkMode
+    ? colors.DARKBACK
+    : colors.OPACITYBUTTON;
+  const textStyle2 = {
+    color: textColor2,
+    backgroundColor: shadowColor,
+    borderColor: shadowColor2,
+  };
+  const textStyle3 = {
+    color: textColor2,
+  };
+  const shadowStyle = {
+    backgroundColor: shadowColor,
+  };
+  const statusStyle = {
+    backgroundColor: statusColor,
+  };
+
   return (
-    <View style={styles.flatListStyle}>
+    <View style={[styles.flatListStyle, shadowStyle]}>
       <View style={styles.teamViewStyle}>
-        <Text style={styles.teamTextStyle}>{teamTitle}</Text>
-        <TouchableOpacity style={styles.btnStyle}>
-          <IconSvgX />
-        </TouchableOpacity>
+        <Text style={[styles.teamTextStyle, textStyle1]}>
+          {teamTitle}
+        </Text>
       </View>
       <View style={styles.specViewStyle}>
-        <Text style={styles.specTextStyle}>{specs}</Text>
+        <Text style={[styles.specTextStyle, textStyle3]}>
+          {specs}
+        </Text>
       </View>
       <View style={styles.cityViewStyle}>
-        <Text style={styles.cityTextStyle}>{city}</Text>
+        <Text style={[styles.cityTextStyle, textStyle1]}>{city}</Text>
       </View>
-      <View style={styles.checkStatusViewStyle}>
+      <View style={[styles.checkStatusViewStyle, statusStyle]}>
         <Text style={styles.checkStatusFontStyle}>Delivered</Text>
       </View>
     </View>
@@ -39,9 +71,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     borderRadius: 16,
     height: 155,
-    width: 335,
+    width: 350,
     shadowOpacity: 0.1,
-    shadowOffset: {width: 5, height: 5},
+    shadowOffset: { width: 5, height: 5 },
     shadowRadius: 5,
   },
   teamViewStyle: {
@@ -72,10 +104,10 @@ const styles = StyleSheet.create({
     color: colors.GRAYTEXT,
   },
   checkStatusViewStyle: {
-    marginLeft: 35,
+    marginLeft: 30,
     marginTop: 10,
     backgroundColor: colors.OPACITYBUTTON,
-    width: 135,
+    width: 290,
     height: 35,
     alignItems: 'center',
     justifyContent: 'center',

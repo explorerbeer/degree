@@ -1,7 +1,7 @@
 import React from 'react';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import {StyleSheet, Text} from 'react-native';
-import {colors} from '../../../colors/colors';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { StyleSheet, Text } from 'react-native';
+import { colors } from '../../../colors/colors';
 
 interface IFindTeamSpecButton {
   findTeamSpecTitle: string;
@@ -27,9 +27,9 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     borderWidth: 18,
     marginHorizontal: 25,
-    marginTop: 60,
+    marginTop: 40,
     shadowOpacity: 0.1,
-    shadowOffset: {width: 5, height: 5},
+    shadowOffset: { width: 5, height: 5 },
     shadowRadius: 3,
   },
   font: {

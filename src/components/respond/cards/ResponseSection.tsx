@@ -1,16 +1,16 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import {FlatList} from 'react-native-gesture-handler';
-import {teams} from '../../../mocks/teams';
-import {Response} from './Response';
+import { StyleSheet, View } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
+import { fakeTeams } from '../../../mocks/fakeTeams';
+import { Response } from './Response';
 
 export const ResponseSection = () => {
   return (
     <View style={styles.container}>
       <FlatList
         contentContainerStyle={styles.flatList}
-        data={teams}
-        renderItem={({item}) => (
+        data={fakeTeams}
+        renderItem={({ item }) => (
           <Response
             teamTitle={item.teamTitle}
             city={item.city}

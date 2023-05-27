@@ -1,18 +1,24 @@
 import React from 'react';
-import {Text, StyleSheet, View} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import { Text, StyleSheet, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import IconSvgGoBack from '../../../assets/icons/general/IconSvgGoBack';
-import {colors} from '../../../colors/colors';
+import { colors } from '../../../colors/colors';
 
 interface IProfileBlockButton {
   prTitle: string;
   onPress: () => void;
 }
 
-export const ProfileBlockButton = ({prTitle, onPress}: IProfileBlockButton) => {
+export const ProfileBlockButton = ({
+  prTitle,
+  onPress,
+}: IProfileBlockButton) => {
   return (
     <View style={styles.profileWithButtonStyle}>
-      <TouchableOpacity style={styles.goBackButtonStyle} onPress={onPress}>
+      <TouchableOpacity
+        style={styles.goBackButtonStyle}
+        onPress={onPress}
+      >
         <IconSvgGoBack />
       </TouchableOpacity>
       <Text style={styles.profileTextStyle}>{prTitle}</Text>

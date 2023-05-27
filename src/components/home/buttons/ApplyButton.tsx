@@ -1,14 +1,14 @@
 import React from 'react';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import {StyleSheet, Text, View} from 'react-native';
-import {colors} from '../../../colors/colors';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { StyleSheet, Text, View } from 'react-native';
+import { colors } from '../../../colors/colors';
 
 interface IApplyButton {
   title: string;
   onPress: () => void;
 }
 
-export const ApplyButton = ({title, onPress}: IApplyButton) => {
+export const ApplyButton = ({ title, onPress }: IApplyButton) => {
   return (
     <View>
       <TouchableOpacity onPress={onPress} style={styles.buttonStyle}>

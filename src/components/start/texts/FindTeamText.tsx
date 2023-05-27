@@ -1,13 +1,23 @@
-import React from 'react';
-import {Text, StyleSheet} from 'react-native';
-import {colors} from '../../../colors/colors';
+import React, { useContext } from 'react';
+import { Text, StyleSheet } from 'react-native';
+import { colors } from '../../../colors/colors';
+import { ThemeContext } from '../../../ThemeContext';
 
 interface IFindTeamText {
   findTeamTitle: string;
 }
 
-export const FindTeamText = ({findTeamTitle}: IFindTeamText) => {
-  return <Text style={styles.findTeamTextStyle}>{findTeamTitle}</Text>;
+export const FindTeamText = ({ findTeamTitle }: IFindTeamText) => {
+  const { darkMode } = useContext(ThemeContext);
+  const textColor = darkMode ? colors.WHITETEXT : colors.GRAYTEXT;
+  const textStyle = {
+    color: textColor,
+  };
+  return (
+    <Text style={[styles.findTeamTextStyle, textStyle]}>
+      {findTeamTitle}
+    </Text>
+  );
 };
 
 const styles = StyleSheet.create({

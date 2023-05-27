@@ -1,13 +1,25 @@
-import React from 'react';
-import {Text, StyleSheet} from 'react-native';
-import {colors} from '../../../colors/colors';
+import React, { useContext } from 'react';
+import { Text, StyleSheet } from 'react-native';
+import { colors } from '../../../colors/colors';
+import { ThemeContext } from '../../../ThemeContext';
 
 interface IFillDetailsText {
   fDetailsTitle: string;
 }
 
-export const FillDetailsText = ({fDetailsTitle}: IFillDetailsText) => {
-  return <Text style={styles.fillDetailsTextStyle}>{fDetailsTitle}</Text>;
+export const FillDetailsText = ({
+  fDetailsTitle,
+}: IFillDetailsText) => {
+  const { darkMode } = useContext(ThemeContext);
+  const textColor = darkMode ? colors.WHITETEXT : colors.GRAYTEXT;
+  const textStyle = {
+    color: textColor,
+  };
+  return (
+    <Text style={[styles.fillDetailsTextStyle, textStyle]}>
+      {fDetailsTitle}
+    </Text>
+  );
 };
 
 const styles = StyleSheet.create({

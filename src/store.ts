@@ -1,11 +1,11 @@
-import {configureStore} from '@reduxjs/toolkit';
-import {useDispatch} from 'react-redux';
+import { configureStore, createStore } from '@reduxjs/toolkit';
+import { useDispatch } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
-import {persistReducer, persistStore} from 'redux-persist';
+import { persistReducer, persistStore } from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import rootReducer from './reducers';
-import {rootSaga} from './sagas';
-import {PersistConfig} from 'redux-persist/es/types';
+import { rootSaga } from './sagas';
+import { PersistConfig } from 'redux-persist/es/types';
 
 const persistConfig: PersistConfig<any> = {
   key: 'root',

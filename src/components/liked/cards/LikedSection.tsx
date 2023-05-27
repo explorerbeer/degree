@@ -1,21 +1,38 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import {FlatList} from 'react-native-gesture-handler';
-import {teams} from '../../../mocks/teams';
-import {Liked} from './Liked';
+import { StyleSheet, Touchable, View } from 'react-native';
+import {
+  FlatList,
+  TouchableWithoutFeedback,
+} from 'react-native-gesture-handler';
+import { fakeTeamsLiked } from '../../../mocks/fakeTeamsLiked';
+import { Liked } from './Liked';
+import { TouchableOpacity } from '@gorhom/bottom-sheet';
 
-export const LikedSection = () => {
+interface ITeamsSection {
+  bottomSheetOnPress: (index: any) => void;
+  selectedTeam: any;
+}
+
+export const LikedSection = ({
+  bottomSheetOnPress,
+  selectedTeam,
+}: ITeamsSection) => {
   return (
     <View style={styles.container}>
       <FlatList
         contentContainerStyle={styles.flatList}
-        data={teams}
-        renderItem={({item}) => (
-          <Liked
-            teamTitle={item.teamTitle}
-            city={item.city}
-            specs={item.profession}
-          />
+        data={fakeTeamsLiked}
+        scrollEnabled={true}
+        renderItem={({ item, index }) => (
+          <TouchableWithoutFeedback
+            onPress={() => bottomSheetOnPress(index)}
+          >
+            <Liked
+              teamTitle={item.teamTitle}
+              city={item.city}
+              specs={item.profession}
+            />
+          </TouchableWithoutFeedback>
         )}
       />
     </View>

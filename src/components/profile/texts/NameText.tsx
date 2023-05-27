@@ -1,13 +1,21 @@
-import React from 'react';
-import {Text, StyleSheet} from 'react-native';
-import {colors} from '../../../colors/colors';
+import React, { useContext } from 'react';
+import { Text, StyleSheet } from 'react-native';
+import { colors } from '../../../colors/colors';
+import { ThemeContext } from '../../../ThemeContext';
 
 interface INameText {
   nameTitle: string;
 }
 
-export const NameText = ({nameTitle}: INameText) => {
-  return <Text style={styles.nameTextStyle}>{nameTitle}</Text>;
+export const NameText = ({ nameTitle }: INameText) => {
+  const { darkMode } = useContext(ThemeContext);
+
+  const textColor = darkMode ? colors.WHITETEXT : colors.BLACKTEXT;
+  const textStyle = { color: textColor };
+
+  return (
+    <Text style={[styles.nameTextStyle, textStyle]}>{nameTitle}</Text>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -15,7 +23,6 @@ const styles = StyleSheet.create({
     paddingTop: 25,
     textAlign: 'center',
     fontSize: 30,
-    color: colors.BLACKTEXT,
     fontFamily: 'Poppins-Medium',
   },
 });

@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, { FC, useContext } from 'react';
 import {
   ActivityIndicator,
   ActivityIndicatorProps,
@@ -7,7 +7,8 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import {colors} from '../../colors/colors';
+import { colors } from '../../colors/colors';
+import { ThemeContext } from '../../ThemeContext';
 
 export interface ILoadingProps extends ActivityIndicatorProps {
   style?: StyleProp<ViewStyle>;
@@ -18,8 +19,12 @@ const Loading: FC<ILoadingProps> = ({
   color = colors.BUTTON,
   style,
 }) => {
+  const { darkMode } = useContext(ThemeContext);
+  const backColor = darkMode ? colors.DARKBACK : colors.BACK;
+  const backStyle = { backgroundColor: backColor };
+
   return (
-    <View style={[styles.container, style]}>
+    <View style={[styles.container, style, backStyle]}>
       <ActivityIndicator size={size} color={color} />
     </View>
   );
@@ -32,6 +37,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: colors.GRAYTEXT,
+    backgroundColor: colors.BACK,
   },
 });

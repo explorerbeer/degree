@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Svg, {Path} from 'react-native-svg';
+import Svg, { Path } from 'react-native-svg';
 
 const IconSvgSettings = () => (
   <Svg width={19} height={20} fill="none">

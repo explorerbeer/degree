@@ -1,14 +1,14 @@
 import React from 'react';
-import {Text, StyleSheet} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import {colors} from '../../../colors/colors';
+import { Text, StyleSheet } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { colors } from '../../../colors/colors';
 
 interface ILogRegButton {
   title: string;
   onPress: () => void;
 }
 
-export const LogRegButton = ({title, onPress}: ILogRegButton) => {
+export const LogRegButton = ({ title, onPress }: ILogRegButton) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.startBtn}>
       <Text style={styles.font}>{title}</Text>
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 25,
     marginTop: 60,
     shadowOpacity: 0.1,
-    shadowOffset: {width: 5, height: 5},
+    shadowOffset: { width: 5, height: 5 },
     shadowRadius: 3,
   },
   font: {

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Svg, {Circle, Path} from 'react-native-svg';
+import Svg, { Circle, Path } from 'react-native-svg';
 
 function IconSvgEyeActive() {
   return (
@@ -11,7 +11,8 @@ function IconSvgEyeActive() {
       stroke="#6A6A6A"
       strokeWidth={1.5}
       strokeLinecap="round"
-      strokeLinejoin="round">
+      strokeLinejoin="round"
+    >
       <Path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
       <Circle cx={12} cy={12} r={3} />
     </Svg>

@@ -1,33 +1,49 @@
-import {useNavigation} from '@react-navigation/native';
-import React, {useCallback, useEffect, useRef} from 'react';
-import {KeyboardAvoidingView, Platform, StyleSheet} from 'react-native';
-import {HaveAccButton} from '../components/register/buttons/HaveAccButton';
-import {LogRegButton} from '../components/register/buttons/LogRegButton';
-import {EmailTextInput} from '../components/register/textinputs/EmailTextInput';
-import {PasswordTextInput} from '../components/register/textinputs/PasswordTextInput';
-import {UserNameTextInput} from '../components/register/textinputs/UserNameTextInput';
-import {FillDetailsText} from '../components/register/texts/FillDetailsText';
-import {RegAccText} from '../components/register/texts/RegAccText';
-import {EScreens} from '../navigation/screens';
-import {colors} from '../colors/colors';
+import { useNavigation } from '@react-navigation/native';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+} from 'react';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+  TextInput,
+} from 'react-native';
+import { HaveAccButton } from '../components/register/buttons/HaveAccButton';
+import { LogRegButton } from '../components/register/buttons/LogRegButton';
+import { EmailTextInput } from '../components/register/textinputs/EmailTextInput';
+import { PasswordTextInput } from '../components/register/textinputs/PasswordTextInput';
+import { UserNameTextInput } from '../components/register/textinputs/UserNameTextInput';
+import { FillDetailsText } from '../components/register/texts/FillDetailsText';
+import { RegAccText } from '../components/register/texts/RegAccText';
+import { EScreens } from '../navigation/screens';
+import { colors } from '../colors/colors';
 import * as Yup from 'yup';
 import passwordValidator from 'zxcvbn';
-import {FormikErrors, FormikValues, useFormik} from 'formik';
-import {useAppDispatch} from '../store';
-import {signUpRequest} from '../actions/auth';
-import {useSelector} from 'react-redux';
+import { FormikErrors, FormikValues, useFormik } from 'formik';
+import { useAppDispatch } from '../store';
+import { signUpRequest } from '../actions/auth';
+import { useSelector } from 'react-redux';
 import {
   alertMessageSelector,
   alertTitleSelector,
   isAlertShownSelector,
 } from '../selectors';
-import {hideAlert} from '../actions/alert';
-import {useErrorAlertDialog, useInfoAlert} from '../components/dialogs/alert';
-import {markRequired} from '../../utils';
+import { hideAlert } from '../actions/alert';
+import {
+  useErrorAlertDialog,
+  useInfoAlert,
+} from '../components/dialogs/alert';
+import { markRequired } from '../../utils';
+import { ThemeContext } from '../ThemeContext';
 
 const validationSchema = Yup.object().shape({
   userName: Yup.string().required('Name is required.'),
-  email: Yup.string().email('Email is invalid.').required('Email is required.'),
+  email: Yup.string()
+    .email('Email is invalid.')
+    .required('Email is required.'),
   password: Yup.string()
     .min(7, 'Should be more than 7 characters.')
     .max(50, 'Should be less than 50 characters.')
@@ -35,7 +51,7 @@ const validationSchema = Yup.object().shape({
     .test((val, context) => {
       const res = passwordValidator(val ?? '');
       if (res.feedback.warning) {
-        return context.createError({message: res.feedback.warning});
+        return context.createError({ message: res.feedback.warning });
       }
       return true;
     }),
@@ -60,13 +76,13 @@ const initialValues: TSignUpValues = {
 
 function getErrorsForFields<T extends FormikValues>(
   errors: FormikErrors<T>,
-  fields: (keyof FormikErrors<T>)[],
+  fields: (keyof FormikErrors<T>)[]
 ): FormikErrors<Partial<T>> {
   let reducedErrors = {};
 
-  Object.keys(errors).forEach(key => {
+  Object.keys(errors).forEach((key) => {
     if (fields.includes(key)) {
-      reducedErrors = {...reducedErrors, [key]: errors[key]};
+      reducedErrors = { ...reducedErrors, [key]: errors[key] };
     }
   });
 
@@ -85,7 +101,7 @@ export const RegisterScreen = () => {
       console.log(values);
       dispatch(signUpRequest(values.email, values.password));
     },
-    [dispatch],
+    [dispatch]
   );
 
   const formik = useFormik({
@@ -101,19 +117,25 @@ export const RegisterScreen = () => {
   const alertMessage = useSelector(alertMessageSelector);
   const alertTitle = useSelector(alertTitleSelector);
 
-  const infoDialog = useInfoAlert('User created', alertMessage ?? '', () => {
-    dispatch(hideAlert());
-    navigation.navigate('LOGIN');
-  });
+  const infoDialog = useInfoAlert(
+    'User created',
+    alertMessage ?? '',
+    () => {
+      dispatch(hideAlert());
+      navigation.navigate('LOGIN');
+    }
+  );
   const errorDialog = useErrorAlertDialog();
-  const inputRef = useRef(null);
+  const inputRef = useRef<TextInput>(null);
   const confirmRef = useRef(null);
 
   useEffect(() => {
     if (isAlertShown && alertTitle) {
       infoDialog.show();
     } else if (isAlertShown) {
-      errorDialog.show(alertMessage ?? '', () => dispatch(hideAlert()));
+      errorDialog.show(alertMessage ?? '', () =>
+        dispatch(hideAlert())
+      );
     }
   }, [
     errorDialog,
@@ -127,18 +149,25 @@ export const RegisterScreen = () => {
     inputRef.current?.focus();
   }, []);
 
+  const { darkMode } = useContext(ThemeContext);
+  const backColor = darkMode ? colors.DARKBACK : colors.BACK;
+  const backStyle = {
+    backgroundColor: backColor,
+  };
+
   return (
     <KeyboardAvoidingView
       behavior="padding"
       enabled={Platform.OS === 'ios'}
-      style={styles.container}>
+      style={[styles.container, backStyle]}
+    >
       <RegAccText regTitle={'Register Account'} />
       <FillDetailsText
-        fDetailsTitle={'Fill your details or continue with social media'}
+        fDetailsTitle={'Fill in your details or log in immediately.'}
       />
-      <UserNameTextInput placeholder={'User Name'} />
+      <UserNameTextInput placeholder={'*Username'} />
       <EmailTextInput
-        placeholder={markRequired('Email Adress')}
+        placeholder={markRequired('Email Address')}
         onChangeText={formik.handleChange('email')}
         onBlur={formik.handleBlur('email')}
         value={formik.values.email}
@@ -165,7 +194,7 @@ export const RegisterScreen = () => {
         returnKeyType="done"
         onSubmitEditing={formik.handleSubmit}
       />
-      <LogRegButton onPress={formik.handleSubmit} title={'SIGN UP'} />
+      <LogRegButton onPress={formik.handleSubmit} title={'Sign Up'} />
       <HaveAccButton
         onPress={navigateToLogin}
         haveAccTitle={'Already have account? '}

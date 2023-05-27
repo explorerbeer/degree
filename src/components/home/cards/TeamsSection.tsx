@@ -1,10 +1,21 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import {FlatList} from 'react-native-gesture-handler';
-import {teams} from '../../../mocks/teams';
-import {Teams} from './Teams';
+import { StyleSheet, Text, View } from 'react-native';
+import {
+  FlatList,
+  TouchableWithoutFeedback,
+} from 'react-native-gesture-handler';
+import { teams } from '../../../mocks/teams';
+import { Teams } from './Teams';
 
-export const TeamsSection = () => {
+interface ITeamsSection {
+  bottomSheetOnPress: (index: any) => void;
+  selectedTeam: any;
+}
+
+export const TeamsSection = ({
+  bottomSheetOnPress,
+  selectedTeam,
+}: ITeamsSection) => {
   return (
     <View>
       <FlatList
@@ -12,12 +23,18 @@ export const TeamsSection = () => {
         contentContainerStyle={styles.flatList}
         horizontal={true}
         data={teams}
-        renderItem={({item}) => (
-          <Teams
-            teamTitle={item.teamTitle}
-            city={item.city}
-            profession={item.profession}
-          />
+        renderItem={({ item, index }) => (
+          <TouchableWithoutFeedback
+            onPress={() => bottomSheetOnPress(index)}
+          >
+            <Teams
+              teamTitle={item.teamTitle}
+              city={item.city}
+              profession={item.profession}
+              links={item.links}
+              descr={item.descr}
+            />
+          </TouchableWithoutFeedback>
         )}
       />
     </View>
